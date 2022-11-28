@@ -1,6 +1,11 @@
 #Best one so far --> score: 0.05698
 #Part of the code is taken by the practice of Dacrema on Slim with Elastic Net
 
+#To run this code in kaggle, after having imported the recsys course code in the notebook you have to
+# write these two lines at the beginning:
+# !cp -r ../input/utilscode/* ./
+# !python run_compile_all_cython.py
+# And delete the os.system() lines
 import pandas as pd
 import numpy as np
 from numpy.ma import MaskedArray
