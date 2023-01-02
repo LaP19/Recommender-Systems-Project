@@ -12,6 +12,9 @@ from numpy.ma import MaskedArray
 import sklearn.utils.fixes
 import scipy.sparse as sps
 
+import warnings
+warnings.filterwarnings("ignore")
+
 sklearn.utils.fixes.MaskedArray = MaskedArray
 
 import os
@@ -204,12 +207,12 @@ from skopt.space import Real, Integer, Categorical
 
 
 hyperparameters_range_dictionary = {
-    "l1_ratio": Real(low = 0.001, high = 0.01, prior = 'log-uniform'), #prior = log-uniform means that valeus
+    "l1_ratio": Real(low = 0.001, high = 0.05, prior = 'log-uniform'), #prior = log-uniform means that valeus
                                                 # are sampled uniformly between log(lower, base) and log(upper, base)
                                                 # (default base is 10)
-    "alpha": Real(low = 0.01, high = 0.1, prior = 'log-uniform'), #low and high are the lower bound and the upper bound
+    "alpha": Real(low = 0.001, high = 0.1, prior = 'log-uniform'), #low and high are the lower bound and the upper bound
     "positive_only": Categorical([True]),
-    "topK": Integer(200,450)
+    "topK": Integer(500,1000)
 }
 #Setup the early stopping --> to save a lot of computational time
 earlystopping_keywargs = {"validation_every_n": 5,
@@ -270,7 +273,7 @@ best_hyperparameters = search_metadata["hyperparameters_best"]
 recommender = SLIMElasticNetRecommender(URM_all)
 #after the hyperparameter tuning I found that the best hyperparameters configuration is
 # (l1_ratio=0.001, alpha=0.01, positive_only=True, topK=450), so I fit the recommender with these values
-recommender.fit(l1_ratio=0.001, alpha=0.01, positive_only=True, topK=450)
+recommender.fit(epochs = 700, l1_ratio=0.049999999999999996, alpha = 0.001, positive_only = True, topK = 1000)
 
 recommender.save_model(output_folder_path, file_name=recommender.RECOMMENDER_NAME + "_my_own_save.zip")
 
