@@ -13,7 +13,7 @@ import os
 os.system(r"run_compile_all_cython.py")
 
 # Load the data
-URM_path = '/kaggle/input/dataset/interactions_and_impressions.csv'
+URM_path = 'Data/interactions_and_impressions.csv'
 URM_all_dataframe = pd.read_csv(filepath_or_buffer=URM_path,
                                 sep=",",
                                 header=0, engine='python')
@@ -235,7 +235,7 @@ new_similarity = (1 - alpha) * recommender_SLIMElasticNet.W_sparse + alpha * rec
 recommender = ItemKNNCustomSimilarityRecommender(URM_all)
 recommender.fit(new_similarity)
 
-test_users = pd.read_csv('/kaggle/input/newdata/data_target_users_test.csv')
+test_users = pd.read_csv('Data/data_target_users_test.csv')
 test_users
 
 user_id = test_users['user_id']
